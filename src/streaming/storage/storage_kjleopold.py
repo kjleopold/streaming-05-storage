@@ -328,6 +328,16 @@ def log_storage_summary(db_path: Path) -> None:
         ORDER BY transaction_count DESC
         """  # noqa: S608
 
+    sql_region_payment = f"""
+        SELECT
+            region_id,
+            payment_method,
+            COUNT(*) AS transaction_count
+        FROM {VALID_TABLE_NAME}
+        GROUP BY region_id, payment_method
+        ORDER BY transaction_count DESC
+        """  # noqa: S608
+
     # Open a connection to the DuckDB database.
     with duckdb.connect(str(db_path)) as conn:
         # use the connection to execute the SQL statements and fetch results.
@@ -348,6 +358,7 @@ def log_storage_summary(db_path: Path) -> None:
         # or an empty list if there are no valid records.
         rows = conn.execute(sql_by_region).fetchall()
         payment_rows = conn.execute(sql_by_payment).fetchall()
+        region_payment_rows = conn.execute(sql_region_payment).fetchall()
 
     LOG.info(f"DuckDB valid row(s): {valid_count}")
     LOG.info(f"DuckDB rejected row(s): {rejected_count}")
@@ -359,3 +370,7 @@ def log_storage_summary(db_path: Path) -> None:
     LOG.info("DuckDB transaction count by payment method:")
     for payment_method, transaction_count in payment_rows:
         LOG.info(f"  {payment_method}: {transaction_count}")
+
+    LOG.info("DuckDB transaction count by region and payment method:")
+    for region_id, payment_method, transaction_count in region_payment_rows:
+        LOG.info(f"  {region_id} | {payment_method}: {transaction_count}")
