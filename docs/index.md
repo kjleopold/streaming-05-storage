@@ -39,7 +39,7 @@ fields.
 ### Consumer Processing
 
 My consumer received sales transaction messages from Kafka, validated them,
-stored valid records in DuckDB, and wrote them to a CSV file. It consumed 40
+stored valid records in DuckDB, and wrote them to a CSV file. It consumed 20
 messages and generated summary reports showing transaction counts by region and
 payment method.
 
