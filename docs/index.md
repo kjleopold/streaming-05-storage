@@ -54,7 +54,7 @@ how payment methods vary across regions.
 
 ### Results
 
-The producer and consumer ran successfully. The consumer processed 40 messages,
+The producer and consumer ran successfully. The consumer processed 20 messages,
 stored the records in DuckDB, and generated transaction summaries by region,
 payment method, and region/payment method combinations.
 
