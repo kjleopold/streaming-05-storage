@@ -39,9 +39,8 @@ fields.
 ### Consumer Processing
 
 My consumer received sales transaction messages from Kafka, validated them,
-stored valid records in DuckDB, and wrote them to a CSV file. It consumed 20
-messages and generated summary reports showing transaction counts by region and
-payment method.
+stored valid records in DuckDB, and wrote them to a CSV file. It also generated
+summary reports showing transaction counts by region and payment method.
 
 ### Experiments
 
@@ -54,9 +53,10 @@ how payment methods vary across regions.
 
 ### Results
 
-The producer and consumer ran successfully. The consumer processed 20 messages,
-stored the records in DuckDB, and generated transaction summaries by region,
-payment method, and region/payment method combinations.
+The producer and consumer ran successfully. The producer sent 20 sales messages
+and the consumer processed 20 messages with no rejected records. The consumer
+stored the data in DuckDB and generated summaries by region, payment method, and
+region/payment method combinations.
 
 ### Interpretation
 
