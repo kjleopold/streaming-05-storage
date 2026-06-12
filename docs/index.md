@@ -23,37 +23,45 @@ to get these projects running on your machine.
 
 ### Dataset
 
-I used the original sales dataset from the project. It contains sales
-transaction records with fields like order ID, region, product, quantity,
-customer information, and payment method.
+The dataset used was sales.csv, which contains sales transaction records for
+online learning products. Fields include order ID, date/time, region, currency,
+product ID, unit price, quantity, customer information, device type, payment
+method, referral source, discount code, and customer notes. I used the example
+dataset without modifications.
 
 ### Kafka Messages
 
 My producer sent sales transaction messages to the
-streaming-05-storage-kjleopold topic. The messages used the original sales
-fields and included a message key based on the region.
+streaming-05-storage-kjleopold topic. Each message contained a sales record in
+JSON format and used the region as the message key. I did not change the message
+fields.
 
 ### Consumer Processing
 
-My consumer received sales records from Kafka, validated them, stored them in
-DuckDB, and wrote valid records to a CSV file. It also generated summary reports
-using the stored data.
+My consumer received sales transaction messages from Kafka, validated them,
+stored valid records in DuckDB, and wrote them to a CSV file. It consumed 40
+messages and generated summary reports showing transaction counts by region and
+payment method.
 
 ### Experiments
 
-For Phase 4, I added a DuckDB summary query that counts transactions by payment method.
+For Phase 4, I modified the DuckDB analytics by adding a summary query that
+counts transactions by payment method.
 
-For Phase 5, I added a query that groups transactions by both region and payment method.
+For Phase 5, I extended the analytics by adding a query that compares
+transaction counts by both region and payment method, making it easier to see
+how payment methods vary across regions.
 
 ### Results
 
-The producer and consumer ran successfully. The consumer stored the records,
-generated transaction counts by region and payment method, and displayed the
-results in the logs.
+The producer and consumer ran successfully. The consumer processed 40 messages,
+stored the records in DuckDB, and generated transaction summaries by region,
+payment method, and region/payment method combinations.
 
 ### Interpretation
 
-This project helped me understand how streaming data can be processed, stored,
-and analyzed using Kafka and DuckDB. By querying the stored data, I was able to
-identify transaction trends by region and payment method. These insights could
-help a business better understand customer behavior and purchasing patterns.
+This project showed how streaming data can be processed, stored, and analyzed
+using Kafka and DuckDB. By querying the stored data, I was able to identify
+transaction patterns by region and payment method. A business could use this
+information to see where transactions are happening and which payment methods
+are used most often.
